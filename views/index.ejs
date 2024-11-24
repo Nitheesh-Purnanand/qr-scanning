@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        /* General Reset and Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1, h4 {
+            margin: 10px 0;
+        }
+
+        /* User Card Style */
+        .user-card {
+            background: #fff;
+            color: #333;
+            padding: 20px;
+            margin: 15px 0;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .user-card h1 {
+            font-size: 1.5rem;
+            color: #6e8efb;
+        }
+
+        .user-card h4 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        /* Buttons */
+        .user-card button {
+            border: none;
+            margin: 5px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: linear-gradient(90deg, #6e8efb, #a777e3);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .user-card button:hover {
+            background: linear-gradient(90deg, #a777e3, #6e8efb);
+        }
+
+        .user-card button a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        /* Home Button */
+        .home-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(90deg, #6e8efb, #a777e3);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .home-btn:hover {
+            background: linear-gradient(90deg, #a777e3, #6e8efb);
+        }
+
+        .home-btn a {
+            text-decoration: none;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <% for (let index = 0; index < users1.length; index++) { const element = users1[index]; %>
+        <div class="user-card">
+            <h1><%= element.name %></h1>
+            <h4><%= element.email %></h4>
+            <button><a href="http://localhost:3000/ig/view/<%= element.id %>">View</a></button>
+            <button><a href="http://localhost:3000/ig/update/<%= element.id %>">Update</a></button>
+        </div>
+    <% } %>
+    <button class="home-btn"><a href="http://localhost:3000/">HOME</a></button>
+</body>
+</html>

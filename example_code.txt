@@ -1,0 +1,7 @@
+db.run(`INSERT INTO users (name, email) VALUES ('Jyotsna', 'jyotsna@email.com');`);
+db.each(`SELECT * FROM users`, (err, row) => {
+if (err) {
+throw err;
+}
+console.log(row);
+});

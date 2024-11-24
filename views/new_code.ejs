@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        #qrcode {
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Generated Successfully</h1>
+    <div id="qrcode"></div>
+    <h1 class="pass"><%= password %></h1>
+    <script>
+        const textToEncode = document.querySelector(".pass").innerText ; 
+        const qrCodeContainer = document.getElementById('qrcode');
+        QRCode.toDataURL(textToEncode, { 
+            width: 300, 
+            margin: 2, 
+            color: {
+                dark: "#000000",
+                light: "#ffffff"
+            } 
+        }).then(url => {
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = 'QR Code';
+            qrCodeContainer.appendChild(img);
+        }).catch(err => {
+            console.error('Error generating QR Code:', err);
+            qrCodeContainer.innerHTML = '<p style="color: red;">Failed to generate QR Code.</p>';
+        });
+    </script>
+</body>
+</html>

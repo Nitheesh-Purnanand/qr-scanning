@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish Form</title>
+    <style>
+        /* General Reset and Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: #fff;
+        }
+
+        /* Centered Card Style */
+        .card {
+            background: #fff;
+            width: 400px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: #333;
+        }
+
+        .card h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #6e8efb;
+        }
+
+        .card p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        /* Form Buttons */
+        .card form {
+            margin-bottom: 20px;
+        }
+
+        .card input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(90deg, #6e8efb, #a777e3);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .card input[type="submit"]:hover {
+            background: linear-gradient(90deg, #a777e3, #6e8efb);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Welcome</h1>
+        <p>Select an option below to proceed</p>
+        <form action="ig/signin_button" method="get">
+            <input type="submit" value="Sign In">
+        </form>
+        <form action="ig/signup_button" method="get">
+            <input type="submit" value="Sign Up">
+        </form>
+    </div>
+</body>
+</html>

