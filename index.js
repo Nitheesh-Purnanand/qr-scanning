@@ -12,9 +12,6 @@ const sqlite3 = require('sqlite3').verbose();
 
 const db = new sqlite3.Database('mydatabase.db', (err) => {console.log(err)});
   
-  
-  
-
 
 let users = []
 let users1 =[]
@@ -101,7 +98,7 @@ app.post("/ig/signin", (req, res) => {
             return res.status(404).send("User not found");
         }
         if (row.password === password) {
-            return res.status(200).send("Sign in successful");
+            res.render("landing.ejs");
         } else {
             return res.status(401).send("Invalid credentials")
         }
@@ -138,4 +135,9 @@ app.get("/direct",(req,res)=>{
 app.post("/ig/scanning",(req,res)=>{
     let {email} = req.body;
     res.render("scanning.ejs",{email})
+})
+
+app.post("/ig/select",(req,res)=>{
+    let {morse} = req.body;
+    res.render("morse.ejs")
 })
